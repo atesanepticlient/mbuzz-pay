@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-const flowbiteReact = require("flowbite-react/plugin/tailwindcss");
+// const flowbiteReact = require("flowbite-react/plugin/tailwindcss");
 
 export default {
   darkMode: ["class"],
@@ -96,5 +96,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), flowbiteReact],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
