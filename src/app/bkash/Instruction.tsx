@@ -2,9 +2,14 @@
 
 import React from "react";
 import { IoWarningOutline } from "react-icons/io5";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
-import { useState } from "react";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 const Instruction = ({
   trxType,
   walletNumber,
@@ -16,8 +21,6 @@ const Instruction = ({
   warning: string | null;
   children: React.ReactNode;
 }) => {
-  const [openModal, setOpenModal] = useState(false);
-
   const bkashSendMoneySteps = [
     "Open Baksh app or dial *247#",
     "Login",
@@ -45,39 +48,33 @@ const Instruction = ({
   return (
     <div>
       {" "}
-      <button onClick={() => setOpenModal(true)} type="button">
-        {children}
-      </button>
-      <Modal
-        position="center"
-        show={openModal}
-        onClose={() => setOpenModal(false)}
-        className=""
-      >
-        <ModalHeader className=" bg-gradient-to-r from-pink-600 to-pink-800">
-          <span className="text-white">
-            How to {trxType} in <strong>Bkash</strong>
-          </span>
-        </ModalHeader>
-        <ModalBody className="bg-white">
-          <div className="space-y-6  flex justify-center flex-col items-start">
-            {instructions.map((s, i) => (
-              <p key={i} className="my-1 text-base text-gray-600 ">
-                {i + 1}. {s}
-              </p>
-            ))}
+      <Dialog>
+        <DialogTrigger asChild>
+          <button type="button">{children}</button>
+        </DialogTrigger>
+        <DialogContent className="!bg-white">
+          <DialogHeader className=" bg-gradient-to-r from-pink-600 to-pink-800">
+            <DialogDescription>
+              How to {trxType} in <strong>Bkash</strong>
+            </DialogDescription>
+          </DialogHeader>
+          <div>
+            <div className="space-y-6  flex justify-center flex-col items-start">
+              {instructions.map((s, i) => (
+                <p key={i} className="my-1 text-base text-gray-600 ">
+                  {i + 1}. {s}
+                </p>
+              ))}
+            </div>
           </div>
-        </ModalBody>
+        </DialogContent>
         {warning && (
-          <ModalFooter className="flex justify-start items-center gap-2 bg-white">
-            <IoWarningOutline
-              className="w-4 h-4 text-gray-700
-        "
-            />
+          <DialogFooter className="flex justify-start items-center gap-2 bg-white">
+            <IoWarningOutline className="w-4 h-4 text-gray-700" />
             <p className="text-sm text-gray-800">{warning}</p>
-          </ModalFooter>
+          </DialogFooter>
         )}
-      </Modal>
+      </Dialog>
     </div>
   );
 };
