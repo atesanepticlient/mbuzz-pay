@@ -18,7 +18,7 @@ import { INTERNAL_SERVER_ERROR } from "@/error";
 import Success from "./Sucess";
 import Instruction from "./Instruction";
 
-import bkashLogo from "@/../public/wallet/bkash.png";
+import upayLogo from "@/../public/wallet/upay.png";
 
 import Image from "next/image";
 
@@ -40,8 +40,8 @@ function Payment() {
   React.useEffect(() => {
     console.log("Fetcha query error", error);
     if (error) {
-      const err = error as any
-      const statusCode = err.status;
+      const err = error as any;
+      const statusCode = err?.status;
       if (statusCode == 400) {
         setInvalidPayment(true);
       } else if (statusCode == 402) {
@@ -71,7 +71,7 @@ function Payment() {
                 onEnd={() => {
                   setTimeOut(true);
                 }}
-                style="bg-[#E1146D]/30 border-[#E1146D]"
+                style="bg-[#FCCD20]/30 border-[#FCCD20]"
               />
               <PaymentHeader />
               <InvoiceDetails
@@ -98,7 +98,7 @@ export default Payment;
 const PaymentHeader = () => {
   return (
     <header className="flex justify-center items-center px-4 py-3">
-      <Image src={bkashLogo} alt="bkash" className="mx-auto w-[140px] " />
+      <Image src={upayLogo} alt="Upay" className="mx-auto w-[140px] " />
     </header>
   );
 };
@@ -108,7 +108,7 @@ const PaymentHeader = () => {
 //   logoUrl: string;
 // }
 
-// function MerchantInfo({ merchantName, logoUrl }: MerchantInfoProps) {
+//  function MerchantInfo({ merchantName, logoUrl }: MerchantInfoProps) {
 //   return (
 //     <header className="mt-10 text-center h-[100px]">
 //       <div className="text-center">
@@ -131,7 +131,7 @@ interface InvoiceDetailsProps {
   trxType: string;
 }
 
- function InvoiceDetails({
+function InvoiceDetails({
   walletNumber,
   totalAmount,
   trxType,
@@ -171,7 +171,7 @@ interface SubmissionFormProps {
   trxType: string;
 }
 
- function SubmissionForm({
+function SubmissionForm({
   trackingNumber,
   id,
   walletNumber,

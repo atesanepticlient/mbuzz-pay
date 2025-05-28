@@ -17,7 +17,7 @@ datasource db {
 
 
 model User{
-  id                String @id @default(cuid()) @unique
+  id                String @id @default(cuid()) 
   phone             String @unique
   password          String
   playerId          String @unique
@@ -25,11 +25,47 @@ model User{
   referId           String @unique
   wallet            Wallet?
   deposit           Deposit[]
-  createdAt           DateTime @default(now())
+  createdAt         DateTime @default(now())
+  cardContainer     CardContainer?
+  withdraws         Withdraw[]
+  inviationBonus    InvitationBonus?
+  invitedById       String?
+  invitedBy         InvitationBonus? @relation("InvitedUsers", fields: [invitedById], references: [id])
+}
+
+model InvitationBonus {
+  id                      String @id @default(cuid()) 
+  totalRegisters          Int @default(0)
+  totalValidreferral      Int @default(0)
+  claimedRewards          ClaimedInvitationReward[]
+  invitedUsers            User[]   @relation("InvitedUsers")
+  userId                  String @unique
+  user                    User @relation(fields: [userId], references: [id])
+}
+
+model InvitationRewareds {
+  id                      String @id @default(cuid()) 
+  rewardImg               String
+  targetReferral          Int
+  prize                   Decimal
+  claimedUsers            ClaimedInvitationReward[]
+
+}
+
+model ClaimedInvitationReward {
+  id                   String               @id @default(cuid())
+  invitationBonusId    String
+  rewardId             String
+  claimedAt            DateTime             @default(now())
+
+  invitationBonus      InvitationBonus      @relation(fields: [invitationBonusId], references: [id])
+  reward               InvitationRewareds   @relation(fields: [rewardId], references: [id])
+
+  @@unique([invitationBonusId, rewardId]) // optional: prevent duplicate claims
 }
 
 model Wallet {
-  id                      String @id @default(cuid()) @unique
+  id                      String @id @default(cuid()) 
   balance                 Decimal
   signinBonus             Boolean @default(false)
   referralBonus           Boolean @default(false)
@@ -40,15 +76,28 @@ model Wallet {
 }
 
 model Bonus {
-  id                      String @id @default(cuid()) @unique
+  id                      String @id @default(cuid()) 
   signinBonus             Int @default(5)
   referralBonus           Int @default(5)
 }
 
-model DepositWallet {
-  id                      String @id @default(cuid()) @unique
-  walletName              String
+enum PaymentWalletType {
+  EWALLET
+  BANK
+  CARD
+  CRYPTO
+}
+model PaymentWallet {
+  id                      String @id @default(cuid())
   walletLogo              String
+  walletName              String
+  walletType              PaymentWalletType @default(EWALLET)
+
+}
+
+model DepositWallet {
+  id                      String @id @default(cuid()) 
+  paymentWalletId         String
   walletNumber            String
   instructions            String
   warning                 String?
@@ -66,7 +115,7 @@ enum DepositStatus {
 }
 
 model Deposit {
-  id                      String @id @default(cuid()) @unique
+  id                      String @id @default(cuid()) 
   amount                  Decimal
   bonus                   Decimal?
   bonusFor                String
@@ -81,3 +130,46 @@ model Deposit {
   user                    User @relation(fields: [userId],references: [id])
   createdAt               DateTime @default(now())
 }
+
+
+
+model CardContainer{
+  id                      String @id @default(cuid()) 
+  ownerName               String
+  password                String
+  userId                  String @unique
+  user                    User @relation(fields: [userId], references: [id])
+  createdAt               DateTime @default(now())
+  cards                   Card[]
+}
+
+model Card{
+  id                      String @id @default(cuid()) 
+  cardNumber              String
+  walletNumber            String
+  paymentWalletid         String 
+  containerId             String 
+  isActive                Boolean @default(true)
+  container               CardContainer @relation(fields: [containerId], references: [id])
+  createdAt               DateTime @default(now())
+  withdraws               Withdraw[] 
+}
+
+enum WithdrawStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+model Withdraw {
+  id                      String @id @default(cuid()) 
+  amount                  Decimal
+  expire                  DateTime
+  status                  WithdrawStatus @default(PENDING)  
+  createdAt               DateTime @default(now())
+  cardId                  String
+  card                    Card @relation(fields: [cardId], references: [id])
+  userId                  String
+  user                    User @relation(fields: [userId], references: [id])
+}
+
+

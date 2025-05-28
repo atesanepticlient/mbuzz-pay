@@ -35,7 +35,8 @@ function Payment() {
   React.useEffect(() => {
     console.log("Fetcha query error", error);
     if (error) {
-      const statusCode = error?.status;
+      const err = error as any
+      const statusCode = err?.status;
       if (statusCode == 400) {
         setInvalidPayment(true);
       } else if (statusCode == 402) {
@@ -97,27 +98,27 @@ function Payment() {
 
 export default Payment;
 
-interface MerchantInfoProps {
-  merchantName: string;
-  logoUrl: string;
-}
+// interface MerchantInfoProps {
+//   merchantName: string;
+//   logoUrl: string;
+// }
 
-export function MerchantInfo({ merchantName, logoUrl }: MerchantInfoProps) {
-  return (
-    <header className="mt-10 text-center h-[100px]">
-      <div className="text-center">
-        <img
-          alt={`${merchantName} logo`}
-          src={logoUrl}
-          className="inline max-w-full text-center h-[60px] overflow-x-clip overflow-y-clip"
-        />
-      </div>
-      <h1 className="text-base font-bold leading-5 text-center h-[38.4px]">
-        {merchantName}
-      </h1>
-    </header>
-  );
-}
+//  function MerchantInfo({ merchantName, logoUrl }: MerchantInfoProps) {
+//   return (
+//     <header className="mt-10 text-center h-[100px]">
+//       <div className="text-center">
+//         <img
+//           alt={`${merchantName} logo`}
+//           src={logoUrl}
+//           className="inline max-w-full text-center h-[60px] overflow-x-clip overflow-y-clip"
+//         />
+//       </div>
+//       <h1 className="text-base font-bold leading-5 text-center h-[38.4px]">
+//         {merchantName}
+//       </h1>
+//     </header>
+//   );
+// }
 
 interface InvoiceDetailsProps {
   walletNumber: string;
@@ -125,7 +126,7 @@ interface InvoiceDetailsProps {
   charge: string;
 }
 
-export function InvoiceDetails({
+ function InvoiceDetails({
   walletNumber,
   totalAmount,
   charge,
@@ -184,7 +185,7 @@ interface SubmissionFormProps {
   trxType: string;
 }
 
-export function SubmissionForm({
+ function SubmissionForm({
   trackingNumber,
   id,
   walletNumber,
