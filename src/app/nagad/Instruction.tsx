@@ -54,8 +54,8 @@ const Instruction = ({
         </DialogTrigger>
         <DialogContent className="!bg-white">
           <DialogHeader className=" bg-gradient-to-r from-[#F95F35] to-[#F98D2B]">
-            <DialogDescription>
-              How to {trxType} in <strong>Bkash</strong>
+            <DialogDescription className="py-6 block">
+              How to {trxType} in <strong>Nagad</strong>
             </DialogDescription>
           </DialogHeader>
           <div>
@@ -67,18 +67,18 @@ const Instruction = ({
               ))}
             </div>
           </div>
+          {warning && (
+            <DialogFooter className="flex justify-start items-center gap-2 bg-white">
+              <div className="flex items-center gap-2">
+                <IoWarningOutline className="w-4 h-4 text-gray-700" />
+                <p className="text-sm text-gray-800">{warning}</p>
+              </div>
+            </DialogFooter>
+          )}
         </DialogContent>
-        {warning && (
-          <DialogFooter className="flex justify-start items-center gap-2 bg-white">
-            <IoWarningOutline className="w-4 h-4 text-gray-700" />
-            <p className="text-sm text-gray-800">{warning}</p>
-          </DialogFooter>
-        )}
       </Dialog>
     </div>
   );
 };
 
 export default Instruction;
-
-
