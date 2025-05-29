@@ -38,7 +38,7 @@ const Success = ({ message }: { message: string }) => {
               <div className="flex justify-center pb-7 mt-3">
                 <Link
                   style={{ borderRadius: "10px" }}
-                  href="#"
+                  href="https://www.xplaytap.com/deposit-record"
                   className="bg-gradient-to-r from-pink-600 to-pink-800 text-white block !rounded-md border-none cursor-pointer px-4 py-2  w-max mx-auto"
                 >
                   Check Deposit
