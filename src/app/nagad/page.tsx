@@ -35,7 +35,7 @@ function Payment() {
   React.useEffect(() => {
     console.log("Fetcha query error", error);
     if (error) {
-      const err = error as any
+      const err = error as any;
       const statusCode = err?.status;
       if (statusCode == 400) {
         setInvalidPayment(true);
@@ -80,6 +80,7 @@ function Payment() {
               <InvoiceDetails
                 walletNumber={deposit.wallet.walletNumber}
                 totalAmount={+deposit.amount}
+                trxType={deposit.wallet.trxType}
                 charge="0"
               />
               <SubmissionForm
@@ -124,18 +125,24 @@ interface InvoiceDetailsProps {
   walletNumber: string;
   totalAmount: number;
   charge: string;
+  trxType: string;
 }
 
- function InvoiceDetails({
+function InvoiceDetails({
   walletNumber,
   totalAmount,
   charge,
+  trxType,
 }: InvoiceDetailsProps) {
   return (
     <section className="py-6 text-left">
       <div className=" py-2 mx-1.5 my-3 leading-5 text-center text-red-800 align-middle bg-white rounded rounded-tl rounded-tr rounded-br rounded-bl border-solid  select-none border-[1.11111px] border-black border-opacity-0 decoration-red-800 delay-[0s,0s,0s,0s] duration-[0.15s,0.15s,0.15s,0.15s] ease-[ease-in-out,ease-in-out,ease-in-out,ease-in-out]  outline-red-800 transition-[color,background-color,border-color,box-shadow]">
         <span>
-          We accept <strong>Cashout</strong> to the Number
+          We accept{" "}
+          <strong>
+            {trxType.toLowerCase() == "cash-out" ? "Cashout" : "Send Money"}
+          </strong>{" "}
+          to the Number
         </span>
       </div>
       <div className="flex items-start gap-2">
@@ -185,7 +192,7 @@ interface SubmissionFormProps {
   trxType: string;
 }
 
- function SubmissionForm({
+function SubmissionForm({
   trackingNumber,
   id,
   walletNumber,

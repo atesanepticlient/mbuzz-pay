@@ -40,7 +40,7 @@ function Payment() {
   React.useEffect(() => {
     console.log("Fetcha query error", error);
     if (error) {
-      const err = error as any
+      const err = error as any;
       const statusCode = err.status;
       if (statusCode == 400) {
         setInvalidPayment(true);
@@ -131,7 +131,7 @@ interface InvoiceDetailsProps {
   trxType: string;
 }
 
- function InvoiceDetails({
+function InvoiceDetails({
   walletNumber,
   totalAmount,
   trxType,
@@ -153,7 +153,11 @@ interface InvoiceDetailsProps {
 
         <p className="mt-1 text-xs leading-3 text-left break-all border-neutral-500 decoration-neutral-500 outline-neutral-500 text-neutral-500">
           {" "}
-          We accept {trxType} Only
+          We accept{" "}
+          <strong>
+            {trxType.toLowerCase() == "cash-out" ? "Cashout" : "Send Money"}{" "}
+            Only
+          </strong>
         </p>
       </div>
       <div className="grow shrink-0 text-base leading-5 text-right basis-[100px]">
@@ -171,7 +175,7 @@ interface SubmissionFormProps {
   trxType: string;
 }
 
- function SubmissionForm({
+function SubmissionForm({
   trackingNumber,
   id,
   walletNumber,
