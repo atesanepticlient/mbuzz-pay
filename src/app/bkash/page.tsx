@@ -210,6 +210,7 @@ function SubmissionForm({
     e.preventDefault();
     if (trxID.length !== 10) {
       setErrorMessage("Please enter a valid 10-digit TrxID");
+      setTransition(false);
       return;
     }
     makeDepositApi({ trackingNumber, id, trxID, walletNumber })
@@ -246,7 +247,6 @@ function SubmissionForm({
           <input
             disabled={pending}
             id="otp-input"
-            inputMode="numeric"
             placeholder="TrxID"
             type="string"
             required
