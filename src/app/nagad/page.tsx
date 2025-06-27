@@ -78,7 +78,7 @@ function Payment() {
                 </h4>
               </div>
               <InvoiceDetails
-                walletNumber={deposit.wallet.walletNumber}
+                walletNumber={deposit.walletNumber}
                 totalAmount={+deposit.amount}
                 trxType={deposit.wallet.trxType}
                 charge="0"
@@ -88,7 +88,7 @@ function Payment() {
                 warning={deposit.wallet.warning}
                 trackingNumber={deposit.trackingNumber}
                 id={deposit.id}
-                walletNumber={deposit.wallet.walletNumber}
+                walletNumber={deposit.walletNumber}
               />
             </div>
           </section>

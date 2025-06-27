@@ -75,7 +75,7 @@ function Payment() {
               />
               <PaymentHeader />
               <InvoiceDetails
-                walletNumber={deposit.wallet.walletNumber}
+                walletNumber={deposit.walletNumber}
                 totalAmount={+deposit.amount}
                 trxType={deposit.wallet.trxType}
               />
@@ -84,7 +84,7 @@ function Payment() {
                 warning={deposit.wallet.warning}
                 trackingNumber={deposit.trackingNumber}
                 id={deposit.id}
-                walletNumber={deposit.wallet.walletNumber}
+                walletNumber={deposit.walletNumber}
               />
             </div>
           </section>
