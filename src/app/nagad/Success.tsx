@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 
 import { FaCheckCircle } from "react-icons/fa";
-import Link from "next/link";
 const Success = ({ message }: { message: string }) => {
   const [open, setOpen] = useState(true);
 
@@ -36,13 +35,13 @@ const Success = ({ message }: { message: string }) => {
                 {message}
               </p>
               <div className="flex justify-center pb-7 mt-3">
-                <Link
+                <a
                   style={{ borderRadius: "10px" }}
-                  href={`${process.env.MAIN_APP_URL}/history`}
+                  href={`https://www.mbuzz88.com/history`}
                   className="bg-gradient-to-r from-[#F95F35] to-[#F98D2B] text-white block !rounded-md border-none cursor-pointer px-4 py-2  w-max mx-auto"
                 >
                   Check Deposit
-                </Link>
+                </a>
               </div>
             </div>
           </Box>
