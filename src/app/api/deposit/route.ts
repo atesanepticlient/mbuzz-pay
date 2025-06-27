@@ -46,15 +46,13 @@ export const GET = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { id, trackingNumber, walletNumber, trxID } = await req.json();
+    const { id, trackingNumber, trxID } = await req.json();
 
     const deposit = await db.deposit.findUnique({
       where: {
         id,
         trackingNumber,
-        wallet: {
-          walletsNumber: { hasSome: walletNumber },
-        },
+
         status: "PENDING",
       },
     });
