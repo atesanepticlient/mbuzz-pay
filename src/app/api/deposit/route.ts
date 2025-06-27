@@ -52,7 +52,9 @@ export const POST = async (req: NextRequest) => {
       where: {
         id,
         trackingNumber,
-        wallet: { walletNumber },
+        wallet: {
+          walletsNumber: { hasSome: walletNumber },
+        },
         status: "PENDING",
       },
     });
